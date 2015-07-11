@@ -5,6 +5,9 @@ before_install:
  - sudo apt-get install qt5-default qttools5-dev-tools
 
 script:
+ - qmake -qt=qt5 -v
+ - qmake -qt=qt5
  - qmake -project
  - qmake Launcher-GPLP-qt.pro
  - make -j 10
+ 
