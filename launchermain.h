@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::LauncherMain *ui;
+
+private slots:
+    void CloseMainWindows();
 };
 
 #endif // LAUNCHERMAIN_H
