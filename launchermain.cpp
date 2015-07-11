@@ -1,6 +1,7 @@
 #include "launchermain.h"
 #include "ui_launchermain.h"
 #include <QMessageBox>
+#include <QLayout>
 
 LauncherMain::LauncherMain(QWidget* parent) :
     QMainWindow(parent),
@@ -8,6 +9,7 @@ LauncherMain::LauncherMain(QWidget* parent) :
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
+    ui->statusBar->setSizeGripEnabled(false); // Temporal, see issue #3
     SetupFunctions();
 }
 
