@@ -17,6 +17,7 @@ TEMPLATE = app
 SOURCES += main.cpp\
         launchermain.cpp
 
-HEADERS  += launchermain.h
+HEADERS  += launchermain.h \
+    types.h
 
 FORMS    += launchermain.ui

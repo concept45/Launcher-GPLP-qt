@@ -2,6 +2,7 @@
 #define LAUNCHERMAIN_H
 
 #include <QMainWindow>
+#include <QMouseEvent>
 
 namespace Ui {
 class LauncherMain;
@@ -16,11 +17,17 @@ public:
     ~LauncherMain();
 
     bool eventFilter(QObject* object, QEvent* event);
+    void mousePressEvent(QMouseEvent* event);
+
+    void mouseMoveEvent(QMouseEvent* event);
 
 private:
     Ui::LauncherMain *ui;
 
     void SetupFunctions();
+
+    int  _mouseClickXCoordinate;
+    int  _mouseClickYCoordinate;
 };
 
 #endif // LAUNCHERMAIN_H

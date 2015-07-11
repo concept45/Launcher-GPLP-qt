@@ -5,7 +5,7 @@
 
 LauncherMain::LauncherMain(QWidget* parent) :
     QMainWindow(parent),
-    ui(new Ui::LauncherMain)
+    ui(new Ui::LauncherMain), _mouseClickXCoordinate(0), _mouseClickYCoordinate(0)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
@@ -34,4 +34,17 @@ bool LauncherMain::eventFilter(QObject* object, QEvent* event)
         return true;
     else
         return QObject::eventFilter(object, event);
+}
+
+void LauncherMain::mousePressEvent(QMouseEvent* event)
+{
+    _mouseClickXCoordinate = event->x();
+    _mouseClickYCoordinate = event->y();
+}
+
+void LauncherMain::mouseMoveEvent(QMouseEvent* event)
+{
+    int newX = event->globalX() - _mouseClickXCoordinate;
+    int newY = event->globalY() - _mouseClickYCoordinate;
+    move(newX, newY); //En un futuro con los paneles de la form web y demas esto solo se podra ejecutar en la parte superior
 }
