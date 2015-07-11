@@ -18,9 +18,18 @@ LauncherMain::~LauncherMain()
 
 void LauncherMain::SetupFunctions()
 {
+    ui->closeButton->installEventFilter(this);
     connect(ui->closeButton, &QPushButton::clicked, [=]()
     {
         if (!close())
             QMessageBox::information(nullptr, "Error while closing the ui", "Error");
     });
+}
+
+bool LauncherMain::eventFilter(QObject* object, QEvent* event)
+{
+    if (object == ui->closeButton && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
+        return true;
+    else
+        return QObject::eventFilter(object, event);
 }

@@ -15,6 +15,8 @@ public:
     explicit LauncherMain(QWidget *parent = 0);
     ~LauncherMain();
 
+    bool eventFilter(QObject* object, QEvent* event);
+
 private:
     Ui::LauncherMain *ui;
 
