@@ -1,3 +1,10 @@
+language: cpp
+
+compiler:
+ - gcc
+ - clang
+sudo: required
+
 before_install:
  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
  - sudo apt-get update -qq
@@ -5,9 +12,5 @@ before_install:
  - sudo apt-get install qt5-default qttools5-dev-tools
 
 script:
- - qmake -qt=qt5 -v
- - qmake -qt=qt5
- - qmake -project
- - qmake Launcher-GPLP-qt.pro
+ - qmake
  - make -j 10
- 
