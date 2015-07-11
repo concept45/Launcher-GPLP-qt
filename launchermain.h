@@ -28,6 +28,8 @@ private:
 
     int  _mouseClickXCoordinate;
     int  _mouseClickYCoordinate;
+
+    bool _maximized;
 };
 
 #endif // LAUNCHERMAIN_H
