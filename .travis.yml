@@ -2,7 +2,7 @@ language: cpp
 
 compiler:
  - gcc
- - clang
+
 sudo: required
 
 before_install:
