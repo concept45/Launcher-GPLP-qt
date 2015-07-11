@@ -18,7 +18,7 @@ LauncherMain::~LauncherMain()
 
 void LauncherMain::SetupFunctions()
 {
-    ui->closeButton->installEventFilter(this);
+    ui->closeButton->installEventFilter(this)
     connect(ui->closeButton, &QPushButton::clicked, [=]()
     {
         if (!close())
