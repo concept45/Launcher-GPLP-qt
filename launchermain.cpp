@@ -2,15 +2,13 @@
 #include "ui_launchermain.h"
 #include <QMessageBox>
 
-LauncherMain::LauncherMain(QWidget *parent) :
+LauncherMain::LauncherMain(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::LauncherMain)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
-
-    connect(ui->closeButton, &QPushButton::clicked, this, &LauncherMain::CloseMainWindows);
-    //connect(ui->closeButton, SIGNAL(clicked()), this, SLOT(CloseMainWindows()));
+    SetupFunctions();
 }
 
 LauncherMain::~LauncherMain()
@@ -18,8 +16,11 @@ LauncherMain::~LauncherMain()
     delete ui;
 }
 
-void LauncherMain::CloseMainWindows()
+void LauncherMain::SetupFunctions()
 {
-    if (!close())
-        QMessageBox::information(nullptr, "Error while closing the ui", "Error");
+    connect(ui->closeButton, &QPushButton::clicked, [=]()
+    {
+        if (!close())
+            QMessageBox::information(nullptr, "Error while closing the ui", "Error");
+    });
 }
