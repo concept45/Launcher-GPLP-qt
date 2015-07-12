@@ -83,6 +83,14 @@ void RelocateButton(QPushButton* button, int32 newX) // Funcion de ayuda
     button->setGeometry(button->geometry().x() - newX, button->geometry().y(), button->geometry().width(), button->geometry().height());
 }
 
+void ModifyColumnView(QColumnView* column, bool width, int32 newParam)
+{
+    if (width)
+        column->setGeometry(column->geometry().x(), column->geometry().y(), column->geometry().width() - newParam, column->geometry().height());
+    else
+        column->setGeometry(column->geometry().x(), column->geometry().y(), column->geometry().width(), column->geometry().height() - newParam);
+}
+
 void LauncherMain::resizeEvent(QResizeEvent* event)
 {
     if (!_init)
@@ -93,8 +101,13 @@ void LauncherMain::resizeEvent(QResizeEvent* event)
 
     int32 currentX = event->oldSize().width();
     int32 newX = currentX - event->size().width();
+    int32 currentY = event->oldSize().height();
+    int32 newY = currentY - event->size().height();
 
     RelocateButton(ui->closeButton, newX);
     RelocateButton(ui->minimizeButton, newX);
     RelocateButton(ui->maximizeButton, newX);
+
+    ModifyColumnView(ui->columnView, false, newY);
+    ModifyColumnView(ui->columnView_2, true, newX);
 }
