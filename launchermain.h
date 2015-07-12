@@ -39,6 +39,7 @@ private:
 
     bool _maximized;
     bool _init;
+    bool _canMove;
 
     QSizeGrip* _grip;
 };

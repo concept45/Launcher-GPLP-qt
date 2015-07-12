@@ -6,7 +6,7 @@
 LauncherMain::LauncherMain(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::LauncherMain), _mouseClickXCoordinate(0), _mouseClickYCoordinate(0),
-    _maximized(false), _init(false), _grip(nullptr)
+    _maximized(false), _init(false), _canMove(true), _grip(nullptr)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
@@ -34,6 +34,11 @@ void LauncherMain::SetupFunctions()
         if (!close())
             QMessageBox::information(nullptr, "Error", "Error while closing the ui");
         qApp->exit();
+    });
+
+    connect(ui->closeButton, &QPushButton::pressed, [=]()
+    {
+        _canMove = false;
     });
 
     connect(ui->maximizeButton, &QPushButton::clicked, [=]()
@@ -64,22 +69,27 @@ bool LauncherMain::eventFilter(QObject* object, QEvent* event)
     if (!_init)
         return false; // Si no se han iniciado la interfaz devolvemos false para no romper las proximas ejecuciones
 
-    if (IsFormButton(object) && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
+    bool formButton = IsFormButton(object);
+
+    if (formButton && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
         return true;
 
-    if (IsFormButton(object))
+    if (formButton)
     {
         if (event->type() == QEvent::HoverEnter)
         {
             //ui->closeButton->setIcon(); Icono del boton en estado Hover
-            qDebug("Hover enter");
             return true;
         }
         else if (event->type() == QEvent::HoverLeave)
         {
             //ui->closeButton->setIcon(); Icono normal del boton.
-            qDebug("Hover exit");
             return true;
+        }
+        else if (event->type() == QEvent::MouseButtonRelease)
+        {
+            _canMove = true;
+            return QObject::eventFilter(object, event); // Devolvemos el filter default para que funcionen los botones
         }
     }
 
@@ -97,7 +107,7 @@ void LauncherMain::mousePressEvent(QMouseEvent* event)
 
 void LauncherMain::mouseMoveEvent(QMouseEvent* event)
 {
-    if (_maximized || !_init)
+    if (_maximized || !_init || !_canMove)
         return;
 
     int32 newX = event->globalX() - _mouseClickXCoordinate;
