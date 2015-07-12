@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/Pics/Buttons">
-        <file>Imagenes GUI/site_logo.png</file>
+        <file>Imagenes_GUI/site_logo.png</file>
     </qresource>
 </RCC>
