@@ -170,7 +170,10 @@
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Pics/Buttons/Imagenes_GUI/site_logo.png);</string>
+     <string notr="true">QComboBox
+{
+    border-image: url(:/Pics/Buttons/Imagenes_GUI/site_logo.png);
+}</string>
     </property>
     <property name="currentText">
      <string/>
