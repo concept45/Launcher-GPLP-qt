@@ -28,6 +28,7 @@ void LauncherMain::SetupFunctions()
     {
         if (!close())
             QMessageBox::information(nullptr, "Error", "Error while closing the ui");
+        qApp->exit();
     });
 
     connect(ui->maximizeButton, &QPushButton::clicked, [=]()
