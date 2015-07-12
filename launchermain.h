@@ -3,9 +3,12 @@
 
 #include <QMainWindow>
 #include <QMouseEvent>
+#include <QResizeEvent>
+#include "types.h"
 
-namespace Ui {
-class LauncherMain;
+namespace Ui
+{
+    class LauncherMain;
 }
 
 class LauncherMain : public QMainWindow
@@ -13,7 +16,7 @@ class LauncherMain : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit LauncherMain(QWidget *parent = 0);
+    explicit LauncherMain(QWidget* parent = 0);
     ~LauncherMain();
 
     bool eventFilter(QObject* object, QEvent* event);
@@ -21,15 +24,18 @@ public:
 
     void mouseMoveEvent(QMouseEvent* event);
 
+    void resizeEvent(QResizeEvent* event);
+
 private:
     Ui::LauncherMain *ui;
 
     void SetupFunctions();
 
-    int  _mouseClickXCoordinate;
-    int  _mouseClickYCoordinate;
+    int32 _mouseClickXCoordinate;
+    int32 _mouseClickYCoordinate;
 
     bool _maximized;
+    bool _init;
 };
 
 #endif // LAUNCHERMAIN_H
