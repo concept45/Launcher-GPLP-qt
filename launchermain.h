@@ -21,13 +21,14 @@ public:
     ~LauncherMain();
 
     bool eventFilter(QObject* object, QEvent* event);
-    void mousePressEvent(QMouseEvent* event);
-
-    void mouseMoveEvent(QMouseEvent* event);
-
-    void resizeEvent(QResizeEvent* event);
 
     bool IsFormButton(QObject* object);
+
+    void mousePressEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+
+    void resizeEvent(QResizeEvent* event);
 
 private:
     Ui::LauncherMain* ui;

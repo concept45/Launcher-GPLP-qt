@@ -6,7 +6,7 @@
 LauncherMain::LauncherMain(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::LauncherMain), _mouseClickXCoordinate(0), _mouseClickYCoordinate(0),
-    _maximized(false), _init(false), _canMove(true), _grip(nullptr)
+    _maximized(false), _init(false), _canMove(false), _grip(nullptr)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
@@ -34,11 +34,6 @@ void LauncherMain::SetupFunctions()
         if (!close())
             QMessageBox::information(nullptr, "Error", "Error while closing the ui");
         qApp->exit();
-    });
-
-    connect(ui->closeButton, &QPushButton::pressed, [=]()
-    {
-        _canMove = false;
     });
 
     connect(ui->maximizeButton, &QPushButton::clicked, [=]()
@@ -86,11 +81,6 @@ bool LauncherMain::eventFilter(QObject* object, QEvent* event)
             //ui->closeButton->setIcon(); Icono normal del boton.
             return true;
         }
-        else if (event->type() == QEvent::MouseButtonRelease)
-        {
-            _canMove = true;
-            return QObject::eventFilter(object, event); // Devolvemos el filter default para que funcionen los botones
-        }
     }
 
     return QObject::eventFilter(object, event);
@@ -98,11 +88,26 @@ bool LauncherMain::eventFilter(QObject* object, QEvent* event)
 
 void LauncherMain::mousePressEvent(QMouseEvent* event)
 {
-    if (_maximized || !_init)
+    if (!_init)
         return;
 
     _mouseClickXCoordinate = event->x();
     _mouseClickYCoordinate = event->y();
+
+    if (_maximized)
+        return;
+
+    if (event->type() == QMouseEvent::MouseButtonPress && event->button() == Qt::LeftButton)
+        _canMove = true;
+}
+
+void LauncherMain::mouseReleaseEvent(QMouseEvent* event)
+{
+    if (_maximized || !_init)
+        return;
+
+    if (event->type() == QMouseEvent::MouseButtonRelease && event->button() == Qt::LeftButton)
+        _canMove = false;
 }
 
 void LauncherMain::mouseMoveEvent(QMouseEvent* event)
