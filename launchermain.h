@@ -42,6 +42,9 @@ private:
     bool _canMove;
 
     QSizeGrip* _grip;
+
+private slots:
+    void ProcessQComboxSignal(int index);
 };
 
 #endif // LAUNCHERMAIN_H

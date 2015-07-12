@@ -56,7 +56,7 @@ void LauncherMain::SetupFunctions()
         showMinimized();
     });
 
-    //_init = true;
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(ProcessQComboxSignal(int)));
 }
 
 bool LauncherMain::IsFormButton(QObject* object) // Funcion de ayuda
@@ -149,4 +149,16 @@ void LauncherMain::resizeEvent(QResizeEvent* event)
     ModifyColumnView(ui->columnView_2, true, newX);
 
     _grip->move(event->size().width() - 12, event->size().height() - 12);
+}
+
+void LauncherMain::ProcessQComboxSignal(int index)
+{
+    if (index == 5)
+    {
+        if (!close())
+            QMessageBox::information(nullptr, "Error", "Error while closing the ui");
+        qApp->exit();
+    }
+
+    ui->comboBox->setCurrentText(QString());
 }
