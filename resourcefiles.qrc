@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Pics/Buttons">
+        <file>Imagenes GUI/site_logo.png</file>
+    </qresource>
+</RCC>

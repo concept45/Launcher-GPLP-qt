@@ -21,3 +21,6 @@ HEADERS  += launchermain.h \
     types.h
 
 FORMS    += launchermain.ui
+
+RESOURCES += \
+    resourcefiles.qrc
