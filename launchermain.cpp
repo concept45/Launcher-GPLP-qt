@@ -50,6 +50,18 @@ bool LauncherMain::eventFilter(QObject* object, QEvent* event)
 {
     if (object == ui->closeButton && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
         return true;
+    else if (object == ui->closeButton && event->type() == QEvent::HoverEnter)
+    {
+        //ui->closeButton->setIcon(); Icono del boton en estado Hover
+        qDebug("Hover enter");
+        return true;
+    }
+    else if (object == ui->closeButton && event->type() == QEvent::HoverLeave)
+    {
+        //ui->closeButton->setIcon(); Icono normal del boton.
+        qDebug("Hover exit");
+        return true;
+    }
     else
         return QObject::eventFilter(object, event);
 }
