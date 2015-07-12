@@ -5,6 +5,10 @@
 #include <QMouseEvent>
 #include <QResizeEvent>
 #include <QSizeGrip>
+#include <QSql>
+#include <QSqlDatabase>
+#include <QFileInfo>
+#include <QHash>
 #include "types.h"
 
 namespace Ui
@@ -34,6 +38,8 @@ private:
     Ui::LauncherMain* ui;
 
     void SetupFunctions();
+    void LoadRealmlists();
+    void SaveRealmlists();
 
     int32 _mouseClickXCoordinate;
     int32 _mouseClickYCoordinate;
@@ -43,6 +49,10 @@ private:
     bool _canMove;
 
     QSizeGrip* _grip;
+
+    QSqlDatabase _dbEngine;
+
+    QHash<QString, QString> _realmlistStore;
 
 private slots:
     void ProcessQComboxSignal(int index);
