@@ -52,7 +52,7 @@ void LauncherMain::SetupFunctions()
 bool LauncherMain::eventFilter(QObject* object, QEvent* event)
 {
     if (!_init)
-        return true;
+        return false; // Si no se han iniciado la interfaz devolvemos false para no romper las proximas ejecuciones
 
     if (object == ui->closeButton && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
         return true;
