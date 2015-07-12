@@ -49,27 +49,36 @@ void LauncherMain::SetupFunctions()
     //_init = true;
 }
 
+bool LauncherMain::IsFormButton(QObject* object) // Funcion de ayuda
+{
+    return object == ui->closeButton || object == ui->maximizeButton || object == ui->minimizeButton;
+}
+
 bool LauncherMain::eventFilter(QObject* object, QEvent* event)
 {
     if (!_init)
         return false; // Si no se han iniciado la interfaz devolvemos false para no romper las proximas ejecuciones
 
-    if (object == ui->closeButton && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
+    if (IsFormButton(object) && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
         return true;
-    else if (object == ui->closeButton && event->type() == QEvent::HoverEnter) // Esto mismo se tiene que meter para los otros botones
+
+    if (IsFormButton(object))
     {
-        //ui->closeButton->setIcon(); Icono del boton en estado Hover
-        qDebug("Hover enter");
-        return true;
+        if (event->type() == QEvent::HoverEnter)
+        {
+            //ui->closeButton->setIcon(); Icono del boton en estado Hover
+            qDebug("Hover enter");
+            return true;
+        }
+        else if (event->type() == QEvent::HoverLeave)
+        {
+            //ui->closeButton->setIcon(); Icono normal del boton.
+            qDebug("Hover exit");
+            return true;
+        }
     }
-    else if (object == ui->closeButton && event->type() == QEvent::HoverLeave) // Esto mismo se tiene que meter para los otros botones
-    {
-        //ui->closeButton->setIcon(); Icono normal del boton.
-        qDebug("Hover exit");
-        return true;
-    }
-    else
-        return QObject::eventFilter(object, event);
+
+    return QObject::eventFilter(object, event);
 }
 
 void LauncherMain::mousePressEvent(QMouseEvent* event)
@@ -91,7 +100,7 @@ void LauncherMain::mouseMoveEvent(QMouseEvent* event)
     move(newX, newY); // En un futuro con los paneles de la form web y demas esto solo se podra ejecutar en la parte superior
 }
 
-void RelocateButton(QPushButton* button, int32 newX) // Funcion de ayuda
+void RelocateButton(QPushButton* button, int32 newX)
 {
     button->setGeometry(button->geometry().x() - newX, button->geometry().y(), button->geometry().width(), button->geometry().height());
 }

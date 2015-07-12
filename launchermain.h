@@ -26,6 +26,8 @@ public:
 
     void resizeEvent(QResizeEvent* event);
 
+    bool IsFormButton(QObject* object);
+
 private:
     Ui::LauncherMain *ui;
 
