@@ -10,7 +10,6 @@ LauncherMain::LauncherMain(QWidget* parent) :
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
-    //ui->statusBar->setSizeGripEnabled(false); // Temporal, see issue #3
     SetupFunctions();
 }
 
@@ -31,13 +30,12 @@ void LauncherMain::SetupFunctions()
 
     connect(ui->maximizeButton, &QPushButton::clicked, [=]()
     {
-        // Temporal, see issue #3
-        /*if (!_maximized)
+        if (!_maximized)
             showMaximized();
         else
             showNormal();
 
-        _maximized = !_maximized;*/
+        _maximized = !_maximized;
     });
 
     connect(ui->minimizeButton, &QPushButton::clicked, [=]()
