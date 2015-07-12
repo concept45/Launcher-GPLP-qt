@@ -20,34 +20,6 @@ LauncherMain::LauncherMain(QWidget* parent) :
 
     _grip = new QSizeGrip(ui->centralWidget);
     _grip->move(width() - 12, height() - 12);
-
-    QString dbPath = QCoreApplication::applicationDirPath() + "/user.db";
-    _dbEngine = QSqlDatabase::addDatabase("QSQLITE");
-    _dbEngine.setDatabaseName(dbPath);
-    QFileInfo checkFile(dbPath);
-    if (checkFile.exists() && checkFile.isFile())
-    {
-        if (!_dbEngine.open())
-            QMessageBox::information(nullptr, "DBError", _dbEngine.lastError().text());
-        else
-        {
-            LoadRealmlists();
-            // Añadir mas cosas
-        }
-    }
-    else
-    {
-        QFile newFile(dbPath);
-        newFile.open(QIODevice::ReadWrite | QIODevice::Text);
-        newFile.close();
-        if (_dbEngine.open())
-        {
-            QSqlQuery query;
-            query.exec("CREATE TABLE `realmlists` (`realmName` LONGTEXT, `realmlist` LONGTEXT);");
-        }
-        else
-            QMessageBox::information(nullptr, "DBError", _dbEngine.lastError().text());
-    }
 }
 
 LauncherMain::~LauncherMain()
@@ -87,6 +59,37 @@ void LauncherMain::SetupFunctions()
     });
 
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(ProcessQComboxSignal(int)));
+}
+
+void LauncherMain::InitDB()
+{
+    QString dbPath = QCoreApplication::applicationDirPath() + "/user.db";
+    _dbEngine = QSqlDatabase::addDatabase("QSQLITE");
+    _dbEngine.setDatabaseName(dbPath);
+    QFileInfo checkFile(dbPath);
+    if (checkFile.exists() && checkFile.isFile())
+    {
+        if (!_dbEngine.open())
+            QMessageBox::information(nullptr, "DBError", _dbEngine.lastError().text());
+        else
+        {
+            LoadRealmlists();
+            // Añadir mas cosas
+        }
+    }
+    else
+    {
+        QFile newFile(dbPath);
+        newFile.open(QIODevice::ReadWrite | QIODevice::Text);
+        newFile.close();
+        if (_dbEngine.open())
+        {
+            QSqlQuery query;
+            query.exec("CREATE TABLE `realmlists` (`realmName` LONGTEXT, `realmlist` LONGTEXT);");
+        }
+        else
+            QMessageBox::information(nullptr, "DBError", _dbEngine.lastError().text());
+    }
 }
 
 bool LauncherMain::IsFormButton(QObject* object) // Funcion de ayuda

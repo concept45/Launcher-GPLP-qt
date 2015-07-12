@@ -38,6 +38,7 @@ private:
     Ui::LauncherMain* ui;
 
     void SetupFunctions();
+    void InitDB();
     void LoadRealmlists();
     void SaveRealmlists();
 
