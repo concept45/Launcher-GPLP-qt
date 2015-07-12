@@ -6,15 +6,20 @@
 LauncherMain::LauncherMain(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::LauncherMain), _mouseClickXCoordinate(0), _mouseClickYCoordinate(0),
-    _maximized(false), _init(false)
+    _maximized(false), _init(false), _grip(nullptr)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
+    ui->comboBox->setCurrentText(QString());
     SetupFunctions();
+
+    _grip = new QSizeGrip(ui->centralWidget);
+    _grip->move(width() - 12, height() - 12);
 }
 
 LauncherMain::~LauncherMain()
 {
+    delete _grip;
     delete ui;
 }
 
@@ -132,4 +137,6 @@ void LauncherMain::resizeEvent(QResizeEvent* event)
 
     ModifyColumnView(ui->columnView, false, newY);
     ModifyColumnView(ui->columnView_2, true, newX);
+
+    _grip->move(event->size().width() - 12, event->size().height() - 12);
 }

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <QResizeEvent>
+#include <QSizeGrip>
 #include "types.h"
 
 namespace Ui
@@ -29,7 +30,7 @@ public:
     bool IsFormButton(QObject* object);
 
 private:
-    Ui::LauncherMain *ui;
+    Ui::LauncherMain* ui;
 
     void SetupFunctions();
 
@@ -38,6 +39,8 @@ private:
 
     bool _maximized;
     bool _init;
+
+    QSizeGrip* _grip;
 };
 
 #endif // LAUNCHERMAIN_H
