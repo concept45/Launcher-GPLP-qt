@@ -21,6 +21,8 @@ LauncherMain::~LauncherMain()
 void LauncherMain::SetupFunctions()
 {
     ui->closeButton->installEventFilter(this);
+    ui->maximizeButton->installEventFilter(this);
+    ui->minimizeButton->installEventFilter(this);
 
     connect(ui->closeButton, &QPushButton::clicked, [=]()
     {
@@ -53,13 +55,13 @@ bool LauncherMain::eventFilter(QObject* object, QEvent* event)
 
     if (object == ui->closeButton && event->type() == QEvent::KeyPress) // Ignoramos las teclas para el boton de cierre
         return true;
-    else if (object == ui->closeButton && event->type() == QEvent::HoverEnter)
+    else if (object == ui->closeButton && event->type() == QEvent::HoverEnter) // Esto mismo se tiene que meter para los otros botones
     {
         //ui->closeButton->setIcon(); Icono del boton en estado Hover
         qDebug("Hover enter");
         return true;
     }
-    else if (object == ui->closeButton && event->type() == QEvent::HoverLeave)
+    else if (object == ui->closeButton && event->type() == QEvent::HoverLeave) // Esto mismo se tiene que meter para los otros botones
     {
         //ui->closeButton->setIcon(); Icono normal del boton.
         qDebug("Hover exit");
