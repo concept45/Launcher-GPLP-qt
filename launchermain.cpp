@@ -17,6 +17,7 @@ LauncherMain::LauncherMain(QWidget* parent) :
     ui->setupUi(this);
     ui->comboBox->setCurrentText(QString());
     SetupFunctions();
+    InitDB();
 
     _grip = new QSizeGrip(ui->centralWidget);
     _grip->move(width() - 12, height() - 12);
