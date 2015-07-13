@@ -50,6 +50,7 @@ void LauncherMain::SetupFunctions()
         else
             showNormal();
 
+        _grip->setVisible(_maximized);
         _maximized = !_maximized;
     });
 
