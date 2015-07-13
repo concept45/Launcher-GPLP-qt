@@ -176,7 +176,7 @@
 }</string>
     </property>
     <property name="currentText">
-     <string/>
+     <string>Gestionar Cuenta</string>
     </property>
     <property name="frame">
      <bool>false</bool>
@@ -215,27 +215,72 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>120</y>
-      <width>121</width>
+      <x>40</x>
+      <y>140</y>
+      <width>91</width>
       <height>91</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/Pics/Buttons/Imagenes_GUI/wow_cat_normal.png);</string>
+    </property>
     <property name="text">
-     <string>434</string>
+     <string/>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>40</x>
       <y>250</y>
-      <width>121</width>
+      <width>91</width>
       <height>91</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/Pics/Buttons/Imagenes_GUI/Wow_wotlk.png);</string>
+    </property>
     <property name="text">
-     <string>335</string>
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>20</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Jugar</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>20</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Gestión de Cuentas</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>20</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Noticias</string>
     </property>
    </widget>
    <zorder>columnView</zorder>
@@ -246,6 +291,9 @@
    <zorder>comboBox</zorder>
    <zorder>pushButton</zorder>
    <zorder>pushButton_2</zorder>
+   <zorder>pushButton_3</zorder>
+   <zorder>pushButton_4</zorder>
+   <zorder>pushButton_5</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

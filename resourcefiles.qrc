@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/Pics/Buttons">
         <file>Imagenes_GUI/site_logo.png</file>
+        <file>Imagenes_GUI/wow_cat_normal.png</file>
+        <file>Imagenes_GUI/Wow_wotlk.png</file>
+    </qresource>
+    <qresource prefix="/Other">
+        <file>Imagenes_GUI/cata_logo-2.png</file>
+        <file>Imagenes_GUI/wow_wotlk_icon_by_fallenshard-d4zg5lm.png</file>
     </qresource>
 </RCC>
