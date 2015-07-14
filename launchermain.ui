@@ -176,7 +176,7 @@
 }</string>
     </property>
     <property name="currentText">
-     <string>Gestionar Cuenta</string>
+     <string/>
     </property>
     <property name="frame">
      <bool>false</bool>
