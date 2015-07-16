@@ -214,12 +214,14 @@ bool CommandParser::ShowHelpForSubCommands(ChatCommand* table, char const* cmd, 
     if (table == getCommandTable())
     {
         _main->GetDevPanel()->GetEditor()->append("Comandos disponibles:");
-        QString outStr = QString::asprintf("%s", list.c_str());
+        QString outStr = "";
+        outStr.sprintf("%s", list.c_str());
         _main->GetDevPanel()->GetEditor()->append(outStr);
     }
     else
     {
-        QString outStr = QString::asprintf("El comando %s tiene subcomandos: %s", cmd, list.c_str());
+        QString outStr = "";
+        outStr.sprintf("El comando %s tiene subcomandos: %s", cmd, list.c_str());
         _main->GetDevPanel()->GetEditor()->append(outStr);
     }
 
