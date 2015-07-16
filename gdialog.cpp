@@ -34,7 +34,10 @@ bool GDialog::eventFilter(QObject* object, QEvent* event)
         QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
         if (keyEvent->key()== Qt::Key_Return) // Segun la tabla de info....
         {
-            if (!sCommandParser->TryParseAndExecute(_textEdit->toPlainText().toStdString().c_str()))
+            QStringList _textLines = _textEdit->toPlainText().split("\n");
+            QString command = _textLines.last();
+
+            if (!sCommandParser->TryParseAndExecute(command.toStdString().c_str()))
             {
                 _textEdit->append("Comando no encontrado.");
             }
