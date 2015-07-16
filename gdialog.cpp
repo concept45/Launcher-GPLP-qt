@@ -37,9 +37,18 @@ bool GDialog::eventFilter(QObject* object, QEvent* event)
             QStringList _textLines = _textEdit->toPlainText().split("\n");
             QString command = _textLines.last();
 
-            if (!sCommandParser->TryParseAndExecute(command.toStdString().c_str()))
+            if (CommandResponse response = sCommandParser->TryParseAndExecute(command.toStdString().c_str()))
             {
-                _textEdit->append("Comando no encontrado.");
+                if (response == COMMAND_RESPONSE_HELP_DATA)
+                {
+                    sCommandParser->ShowHelpForCommand(sCommandParser->getCommandTable(), command.toStdString().c_str());
+                }
+                else
+                {
+                    std::string responseStr = sCommandParser->GetResponseString(response);
+                    if (responseStr != "")
+                        _textEdit->append(responseStr.c_str());
+                }
             }
         }
 

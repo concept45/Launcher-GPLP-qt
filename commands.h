@@ -6,6 +6,16 @@
 
 class LauncherMain;
 
+enum CommandResponse
+{
+    COMMAND_RESPONSE_DONT_EXISTS    = 0,
+    COMMAND_RESPONSE_DONT_EXISTS_S  = 1,
+    COMMAND_RESPONSE_SINTAXIS_ERROR = 2,
+    COMMAND_RESPONSE_DONT_REPORT    = 3,
+    COMMAND_RESPONSE_HELP_DATA      = 4,
+    COMMAND_RESPONSE_OK             = 5,
+};
+
 class ChatCommand
 {
 public:
@@ -34,9 +44,13 @@ public:
         Q_ASSERT(_main);
     }
 
-    bool TryParseAndExecute(char const* text);
-    bool TryExecute(ChatCommand* table, const char* text, const std::string& fullcmd);
+    CommandResponse TryParseAndExecute(char const* text);
+    CommandResponse TryExecute(ChatCommand* table, const char* text, const std::string& fullcmd);
     bool HasStringAbbr(char const* name, char const* part);
+    bool ShowHelpForCommand(ChatCommand* table, const char* cmd);
+    bool ShowHelpForSubCommands(ChatCommand* table, char const* cmd, char const* subcmd);
+
+    char const* GetResponseString(CommandResponse response);
 
     ChatCommand* getCommandTable();
 
