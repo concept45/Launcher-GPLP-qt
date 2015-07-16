@@ -10,6 +10,13 @@
 #include <QFileInfo>
 #include <QHash>
 #include "types.h"
+#include "gdialog.h"
+
+#ifndef Q_ASSERT
+    #define Q_ASSERT(cond) ((!(cond)) ? qt_assert(#cond,__FILE__,__LINE__) : qt_noop())
+#endif
+
+class GDialog;
 
 namespace Ui
 {
@@ -34,6 +41,10 @@ public:
 
     void resizeEvent(QResizeEvent* event);
 
+    void SetDevMode(bool x, bool init);
+    void SetDevPanel(GDialog* dialog);
+    GDialog* GetDevPanel() { return _devPanel; }
+
 private:
     Ui::LauncherMain* ui;
 
@@ -55,8 +66,15 @@ private:
 
     QHash<QString, QString> _realmlistStore;
 
+    bool _devMode;
+
+    GDialog* _devPanel;
+
 private slots:
     void ProcessQComboxSignal(int index);
+
+public: // Zona Comandos
+   bool HandleHelloCommand(char const* args);
 };
 
 #endif // LAUNCHERMAIN_H

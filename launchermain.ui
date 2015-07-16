@@ -176,7 +176,7 @@
 }</string>
     </property>
     <property name="currentText">
-     <string/>
+     <string>Gestionar Cuenta</string>
     </property>
     <property name="frame">
      <bool>false</bool>
@@ -283,6 +283,25 @@
      <string>Noticias</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="devButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>0</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dev Console</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
    <zorder>columnView</zorder>
    <zorder>columnView_2</zorder>
    <zorder>closeButton</zorder>
@@ -294,6 +313,7 @@
    <zorder>pushButton_3</zorder>
    <zorder>pushButton_4</zorder>
    <zorder>pushButton_5</zorder>
+   <zorder>devButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

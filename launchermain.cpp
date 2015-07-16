@@ -1,5 +1,6 @@
 #include "launchermain.h"
 #include "ui_launchermain.h"
+#include "commands.h"
 #include <QMessageBox>
 #include <QLayout>
 #include <QFile>
@@ -11,16 +12,20 @@
 LauncherMain::LauncherMain(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::LauncherMain), _mouseClickXCoordinate(0), _mouseClickYCoordinate(0),
-    _maximized(false), _init(false), _canMove(false), _grip(nullptr)
+    _maximized(false), _init(false), _canMove(false), _grip(nullptr), _devMode(false),
+    _devPanel(nullptr)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     ui->setupUi(this);
+    ui->devButton->setVisible(false);
     ui->comboBox->setCurrentText(QString());
     SetupFunctions();
     InitDB();
 
     _grip = new QSizeGrip(ui->centralWidget);
     _grip->move(width() - 12, height() - 12);
+
+    sCommandParser->SetLauncherMain(this);
 }
 
 LauncherMain::~LauncherMain()
@@ -61,6 +66,19 @@ void LauncherMain::SetupFunctions()
     });
 
     connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(ProcessQComboxSignal(int)));
+
+    connect(ui->devButton, &QPushButton::clicked, [=]()
+    {
+        GDialog* dialog = new GDialog(this);
+        QVBoxLayout* layout = new QVBoxLayout(dialog);
+        layout->setContentsMargins(QMargins());
+        layout->setSpacing(0);
+        QTextEdit* edit = new QTextEdit(dialog);
+        layout->addWidget(edit);
+        dialog->SetTextEdit(edit);
+        dialog->show();
+        SetDevPanel(dialog);
+    });
 }
 
 void LauncherMain::InitDB()
@@ -251,4 +269,22 @@ void LauncherMain::SaveRealmlists()
 
     sqlSave << ";";
     query.exec(sqlSave.str().c_str());
+}
+
+void LauncherMain::SetDevMode(bool x, bool init)
+{
+    _devMode = x;
+    if (_devMode && init)
+    {
+        ui->devButton->setVisible(true);
+        ui->devButton->setEnabled(true);
+    }
+}
+
+void LauncherMain::SetDevPanel(GDialog* dialog)
+{
+    if (_devPanel)
+        _devPanel->close();
+
+    _devPanel = dialog;
 }

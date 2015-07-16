@@ -15,10 +15,15 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        launchermain.cpp
+        launchermain.cpp \
+    gdialog.cpp \
+    commands.cpp \
+    commandshandler.cpp
 
 HEADERS  += launchermain.h \
-    types.h
+    types.h \
+    gdialog.h \
+    commands.h
 
 FORMS    += launchermain.ui
 
