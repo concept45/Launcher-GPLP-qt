@@ -39,9 +39,9 @@ public:
 
     void SetLauncherMain(LauncherMain* launcher)
     {
-        Q_ASSERT(launcher);
+        G_ASSERT(launcher);
         _main = launcher;
-        Q_ASSERT(_main);
+        G_ASSERT(_main);
     }
 
     CommandResponse TryParseAndExecute(char const* text);

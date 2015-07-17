@@ -21,9 +21,9 @@ void GDialog::closeEvent(QCloseEvent* event)
 
 void GDialog::SetTextEdit(QTextEdit* textEdit)
 {
-    Q_ASSERT(textEdit);
+    G_ASSERT(textEdit);
     _textEdit = textEdit;
-    Q_ASSERT(_textEdit);
+    G_ASSERT(_textEdit);
     _textEdit->installEventFilter(this);
 }
 

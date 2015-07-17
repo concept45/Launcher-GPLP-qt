@@ -12,8 +12,8 @@
 #include "types.h"
 #include "gdialog.h"
 
-#ifndef Q_ASSERT
-    #define Q_ASSERT(cond) ((!(cond)) ? qt_assert(#cond,__FILE__,__LINE__) : qt_noop())
+#ifndef G_ASSERT
+    #define G_ASSERT(cond) ((!(cond)) ? qt_assert(#cond,__FILE__,__LINE__) : qt_noop())
 #endif
 
 class GDialog;
