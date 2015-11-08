@@ -77,6 +77,7 @@ public: // Zona Comandos
    bool HandleHelloCommand(char const* args);
    bool HandleHelpCommand(char const* args);
    bool HandleClearConsoleCommand(char const* args);
+   bool HandleDownloadTestCommand(char const* args);
 };
 
 #endif // LAUNCHERMAIN_H

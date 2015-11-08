@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql network
 
 CONFIG   += c++11
 
@@ -18,12 +18,14 @@ SOURCES += main.cpp\
         launchermain.cpp \
     gdialog.cpp \
     commands.cpp \
-    commandshandler.cpp
+    commandshandler.cpp \
+    filedownloader.cpp
 
 HEADERS  += launchermain.h \
     types.h \
     gdialog.h \
-    commands.h
+    commands.h \
+    filedownloader.h
 
 FORMS    += launchermain.ui
 

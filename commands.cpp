@@ -10,10 +10,11 @@ ChatCommand* CommandParser::getCommandTable()
 {
     static ChatCommand commandTable[] =
     {
-        { "help",  CommandFunction<&LauncherMain::HandleHelpCommand>,  "",                   nullptr },
-        { "hello", CommandFunction<&LauncherMain::HandleHelloCommand>, "Comando de prueba.", nullptr },
-        { "cls",   CommandFunction<&LauncherMain::HandleClearConsoleCommand>, "",            nullptr },
-        { nullptr, nullptr,                                            "",                   nullptr },
+        { "help",     CommandFunction<&LauncherMain::HandleHelpCommand>,  "",                   nullptr },
+        { "hello",    CommandFunction<&LauncherMain::HandleHelloCommand>, "Comando de prueba.", nullptr },
+        { "cls",      CommandFunction<&LauncherMain::HandleClearConsoleCommand>, "",            nullptr },
+        { "download", CommandFunction<&LauncherMain::HandleDownloadTestCommand>, "",            nullptr },
+        { nullptr,    nullptr,                                            "",                   nullptr },
     };
 
     return commandTable;

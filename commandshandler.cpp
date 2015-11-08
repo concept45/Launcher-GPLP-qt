@@ -1,5 +1,6 @@
 #include "commands.h"
 #include "launchermain.h"
+#include "filedownloader.h"
 
 bool LauncherMain::HandleHelloCommand(char const* /*args*/)
 {
@@ -27,5 +28,17 @@ bool LauncherMain::HandleHelpCommand(char const* args)
 bool LauncherMain::HandleClearConsoleCommand(char const* /*args*/)
 {
     GetDevPanel()->GetEditor()->setText("");
+    return true;
+}
+
+bool LauncherMain::HandleDownloadTestCommand(char const* args)
+{
+    if (!*args)
+        return false;
+
+    QUrl url;
+    url.setUrl(args);
+    FileDownloader downloader(url);
+    downloader.Execute();
     return true;
 }
