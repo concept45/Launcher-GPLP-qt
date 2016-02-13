@@ -15,7 +15,7 @@ FileDownloader::~FileDownloader()
 
 void FileDownloader::Execute()
 {
-    qDebug(_url.toString()..toString().toStdString().c_str());
+    qDebug(_url.toString().toString().toStdString().c_str());
     QNetworkRequest request(_url);
     QNetworkReply* reply = _networkMgr.get(request);
     while (!reply->isFinished())
