@@ -1,6 +1,7 @@
 install:
   - set QTDIR=C:\Qt\5.5\mingw492_32
   - set PATH=%PATH%;%QTDIR%\bin;C:\MinGW\bin
+  
 build_script:
-  - qmake Launcher-GPLP-qt.pro
-  - mingw32-make
+  - qmake
+  - mingw32-make -j 10 -D__NO_INLINE__
