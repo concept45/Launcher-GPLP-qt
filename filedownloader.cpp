@@ -15,7 +15,7 @@ FileDownloader::~FileDownloader()
 
 void FileDownloader::Execute()
 {
-    qDebug(_url.toString().toStdString().c_str());
+    qDebug(_url.toString()..toString().toStdString().c_str());
     QNetworkRequest request(_url);
     QNetworkReply* reply = _networkMgr.get(request);
     while (!reply->isFinished())
@@ -24,7 +24,7 @@ void FileDownloader::Execute()
     _downloadedData = reply->readAll();
     reply->deleteLater();
     //emit downloaded();
-    qDebug(_downloadedData.toStdString().c_str());
+    qDebug(_downloadedData.toString().toStdString().c_str());
     QString path = QCoreApplication::applicationDirPath() + "/prueba.txt";
     QFile localFile(path);
     if (!localFile.open(QIODevice::WriteOnly))
@@ -33,6 +33,6 @@ void FileDownloader::Execute()
         return;
     }
 
-    localFile.write(_downloadedData.toStdString().c_str());
+    localFile.write(_downloadedData.toString().toStdString().c_str());
     localFile.close();
 }
