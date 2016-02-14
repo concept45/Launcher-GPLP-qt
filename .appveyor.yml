@@ -4,4 +4,4 @@ install:
   
 build_script:
   - qmake
-  - mingw32-make -j 10 -D__NO_INLINE__
+  - mingw32-make -j 10
