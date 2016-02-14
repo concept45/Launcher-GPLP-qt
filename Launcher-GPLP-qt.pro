@@ -6,9 +6,9 @@
 
 QT       += core gui sql network
 
-CONFIG   += c++11
+# CONFIG   += c++11
 
-QMAKE_CXXFLAGS_CXX11 += -D__NO_INLINE__
+QMAKE_CXXFLAGS += -std=c++11 -D__NO_INLINE__
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
