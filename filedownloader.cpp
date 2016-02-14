@@ -2,7 +2,6 @@
 #include <QFile>
 #include <QCoreApplication>
 #include <QThread>
-#include <QWaitCondition>
 
 FileDownloader::FileDownloader(QUrl imageUrl, QObject* parent) :
     QObject(parent)
@@ -21,10 +20,7 @@ void FileDownloader::Execute()
     QNetworkReply* reply = _networkMgr.get(request);
     
     while (!reply->isFinished())
-    {
-        QWaitCondition sleep;
-        sleep.wait(50);
-    }
+        QThread::currentThread()->wait(50);
 
     _downloadedData = reply->readAll();
     QString downloadDataStr = QString::fromUtf8(_downloadedData.constData()); 
