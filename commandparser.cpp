@@ -1,26 +1,34 @@
-#include "commands.h"
+#include "commandparser.h"
 
-template<bool (LauncherMain::*F)(const char*)>
-bool CommandFunction(LauncherMain* launcher, const char* args)
+template<bool (DevPanel::*F)(const char*)>
+bool CommandFunction(DevPanel* launcher, const char* args)
 {
     return (launcher->*F)(args);
 }
 
 ChatCommand* CommandParser::getCommandTable()
 {
+    static ChatCommand subCommandTable[] =
+    {
+        { "world", CommandFunction<&DevPanel::HandleHelloWorldCommand>, "",              nullptr },
+        { "",      CommandFunction<&DevPanel::HandleHelloCommand>, "Comando de prueba.", nullptr },
+        { nullptr, nullptr,                                             "",              nullptr },
+    };
+
     static ChatCommand commandTable[] =
     {
-        { "help",     CommandFunction<&LauncherMain::HandleHelpCommand>,  "",                   nullptr },
-        { "hello",    CommandFunction<&LauncherMain::HandleHelloCommand>, "Comando de prueba.", nullptr },
-        { "cls",      CommandFunction<&LauncherMain::HandleClearConsoleCommand>, "",            nullptr },
-        { "download", CommandFunction<&LauncherMain::HandleDownloadTestCommand>, "",            nullptr },
-        { nullptr,    nullptr,                                            "",                   nullptr },
+        { "help",     CommandFunction<&DevPanel::HandleHelpCommand>,         "",            nullptr },
+        { "hello",    CommandFunction<&DevPanel::HandleHelloCommand>, "Subcomando de prueba.", subCommandTable },
+        { "cls",      CommandFunction<&DevPanel::HandleClearConsoleCommand>, "",            nullptr },
+        { "exit",     CommandFunction<&DevPanel::HandleExitCommand>,         "",            nullptr },
+        { "download", CommandFunction<&DevPanel::HandleDownloadTestCommand>, "",            nullptr },
+        { nullptr,    nullptr,                                               "",            nullptr },
     };
 
     return commandTable;
 }
 
-CommandParser::CommandParser() : _main(nullptr)
+CommandParser::CommandParser(DevPanel* parent) : _form(parent)
 {
 }
 
@@ -63,10 +71,8 @@ CommandResponse CommandParser::TryParseAndExecute(char const* text)
     if (text[0] == '!' || text[0] == '.')
         ++text;
 
-    if (CommandResponse response = TryExecute(getCommandTable(), text, fullcmd))
-        return response;
-
-    return COMMAND_RESPONSE_OK;
+    CommandResponse response = TryExecute(getCommandTable(), text, fullcmd);
+    return response;
 }
 
 CommandResponse CommandParser::TryExecute(ChatCommand* table, char const* text, std::string const& fullcmd)
@@ -109,7 +115,7 @@ CommandResponse CommandParser::TryExecute(ChatCommand* table, char const* text, 
 
         if (table[i].ChildCommands != nullptr)
         {
-            if (!TryExecute(table[i].ChildCommands, text, fullcmd))
+            if (TryExecute(table[i].ChildCommands, text, fullcmd) != COMMAND_RESPONSE_OK)
             {
                 ShowHelpForCommand(table[i].ChildCommands, text);
                 if (text && text[0] != '\0')
@@ -124,7 +130,7 @@ CommandResponse CommandParser::TryExecute(ChatCommand* table, char const* text, 
         if (!table[i].Handler)
             continue;
 
-        if (!((table[i].Handler)(_main, table[i].Name[0] != '\0' ? text : oldtext)))
+        if (!((table[i].Handler)(_form, table[i].Name[0] != '\0' ? text : oldtext)))
         {
             if (!table[i].Help.empty())
                 return COMMAND_RESPONSE_HELP_DATA;
@@ -156,7 +162,7 @@ bool CommandParser::ShowHelpForCommand(ChatCommand* table, const char* cmd)
             }
 
             if (!table[i].Help.empty())
-                _main->GetDevPanel()->GetEditor()->append(table[i].Help.c_str());
+                _form->AppendText(table[i].Help.c_str());
 
             if (table[i].ChildCommands)
                 if (ShowHelpForSubCommands(table[i].ChildCommands, table[i].Name, subcmd ? subcmd : ""))
@@ -173,7 +179,7 @@ bool CommandParser::ShowHelpForCommand(ChatCommand* table, const char* cmd)
                 continue;
 
             if (!table[i].Help.empty())
-                _main->GetDevPanel()->GetEditor()->append(table[i].Help.c_str());
+                _form->AppendText(table[i].Help.c_str());
 
             if (table[i].ChildCommands)
                 if (ShowHelpForSubCommands(table[i].ChildCommands, "", ""))
@@ -203,7 +209,8 @@ bool CommandParser::ShowHelpForSubCommands(ChatCommand* table, char const* cmd, 
             list += "    ";
         }
 
-        list += table[i].Name;
+        std::string commandName = table[i].Name;
+        list += commandName == "" ? "\"\" " : commandName;
 
         if (table[i].ChildCommands)
             list += " ...";
@@ -214,16 +221,16 @@ bool CommandParser::ShowHelpForSubCommands(ChatCommand* table, char const* cmd, 
 
     if (table == getCommandTable())
     {
-        _main->GetDevPanel()->GetEditor()->append("Comandos disponibles:");
+        _form->AppendText("Comandos disponibles:");
         QString outStr = "";
         outStr.sprintf("%s", list.c_str());
-        _main->GetDevPanel()->GetEditor()->append(outStr);
+        _form->AppendText(outStr);
     }
     else
     {
         QString outStr = "";
-        outStr.sprintf("El comando %s tiene subcomandos: %s", cmd, list.c_str());
-        _main->GetDevPanel()->GetEditor()->append(outStr);
+        outStr.sprintf("El comando %s tiene subcomandos:\n%s", cmd, list.c_str());
+        _form->AppendText(outStr);
     }
 
     return true;

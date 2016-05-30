@@ -18,18 +18,19 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         launchermain.cpp \
-    commands.cpp \
-    commandshandler.cpp \
     downloadhandler.cpp \
-    gcommanddialog.cpp
+    devpanel.cpp \
+    commandparser.cpp \
+    commandimplementation.cpp
 
 HEADERS  += launchermain.h \
     types.h \
-    commands.h \
     downloadhandler.h \
-    gcommanddialog.h
+    devpanel.h \
+    commandparser.h
 
-FORMS    += launchermain.ui
+FORMS    += launchermain.ui \
+    devpanel.ui
 
 RESOURCES += \
     resourcefiles.qrc

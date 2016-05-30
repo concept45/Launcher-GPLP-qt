@@ -1,10 +1,10 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
-#include "launchermain.h"
+#include "devpanel.h"
 #include <QVector>
 
-class LauncherMain;
+class DevPanel;
 
 enum CommandResponse
 {
@@ -20,7 +20,7 @@ class ChatCommand
 {
 public:
     const char *       Name;
-    bool (*Handler)(LauncherMain*, const char* args);
+    bool (*Handler)(DevPanel*, const char* args);
     std::string        Help;
     ChatCommand*      ChildCommands;
 };
@@ -28,21 +28,8 @@ public:
 class CommandParser
 {
 public:
-    explicit CommandParser();
+    explicit CommandParser(DevPanel* parent);
     ~CommandParser();
-
-    static CommandParser* instance()
-    {
-        static CommandParser instance;
-        return &instance;
-    }
-
-    void SetLauncherMain(LauncherMain* launcher)
-    {
-        G_ASSERT(launcher);
-        _main = launcher;
-        G_ASSERT(_main);
-    }
 
     CommandResponse TryParseAndExecute(char const* text);
     CommandResponse TryExecute(ChatCommand* table, const char* text, const std::string& fullcmd);
@@ -55,10 +42,7 @@ public:
     ChatCommand* getCommandTable();
 
 private:
-    LauncherMain* _main;
+    DevPanel* _form;
 };
 
-#define sCommandParser CommandParser::instance()
-
 #endif // COMMANDS_H
-

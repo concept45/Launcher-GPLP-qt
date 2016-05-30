@@ -10,13 +10,11 @@
 #include <QFileInfo>
 #include <QHash>
 #include "types.h"
-#include "gcommanddialog.h"
+#include "devpanel.h"
 
 #ifndef G_ASSERT
     #define G_ASSERT(cond) ((!(cond)) ? qt_assert(#cond,__FILE__,__LINE__) : qt_noop())
 #endif
-
-class GCommandDialog;
 
 namespace Ui
 {
@@ -42,8 +40,8 @@ public:
     void resizeEvent(QResizeEvent* event);
 
     void SetDevMode(bool x, bool init);
-    void SetDevPanel(GCommandDialog* dialog);
-    GCommandDialog* GetDevPanel() { return _devPanel; }
+    void SetDevPanel(DevPanel* dialog);
+    DevPanel* GetDevPanel() { return _devPanel; }
 
 private:
     Ui::LauncherMain* ui;
@@ -68,16 +66,10 @@ private:
 
     bool _devMode;
 
-    GCommandDialog* _devPanel;
+    DevPanel* _devPanel;
 
 private slots:
     void ProcessQComboxSignal(int index);
-
-public: // Zona Comandos
-   bool HandleHelloCommand(char const* args);
-   bool HandleHelpCommand(char const* args);
-   bool HandleClearConsoleCommand(char const* args);
-   bool HandleDownloadTestCommand(char const* args);
 };
 
 #endif // LAUNCHERMAIN_H

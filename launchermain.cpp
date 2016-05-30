@@ -1,6 +1,5 @@
 #include "launchermain.h"
 #include "ui_launchermain.h"
-#include "commands.h"
 #include <QMessageBox>
 #include <QLayout>
 #include <QFile>
@@ -24,8 +23,6 @@ LauncherMain::LauncherMain(QWidget* parent) :
 
     _grip = new QSizeGrip(ui->centralWidget);
     _grip->move(width() - 12, height() - 12);
-
-    sCommandParser->SetLauncherMain(this);
 }
 
 LauncherMain::~LauncherMain()
@@ -69,15 +66,9 @@ void LauncherMain::SetupFunctions()
 
     connect(ui->devButton, &QPushButton::clicked, [=]()
     {
-        GCommandDialog* dialog = new GCommandDialog(this);
-        QVBoxLayout* layout = new QVBoxLayout(dialog);
-        layout->setContentsMargins(QMargins());
-        layout->setSpacing(0);
-        QTextEdit* edit = new QTextEdit(dialog);
-        layout->addWidget(edit);
-        dialog->SetTextEdit(edit);
-        dialog->show();
-        SetDevPanel(dialog);
+        DevPanel* devPanel = new DevPanel(this);
+        devPanel->show();
+        SetDevPanel(devPanel);
     });
 }
 
@@ -281,10 +272,13 @@ void LauncherMain::SetDevMode(bool x, bool init)
     }
 }
 
-void LauncherMain::SetDevPanel(GCommandDialog* dialog)
+void LauncherMain::SetDevPanel(DevPanel* dialog)
 {
     if (_devPanel)
+    {
+        _devPanel->deleteLater();
         _devPanel->close();
+    }
 
     _devPanel = dialog;
 }
