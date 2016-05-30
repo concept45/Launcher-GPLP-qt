@@ -1,17 +1,17 @@
-#include "gdialog.h"
+#include "gcommanddialog.h"
 #include "commands.h"
 
-GDialog::GDialog(LauncherMain* base, QWidget* parent) :
+GCommandDialog::GCommandDialog(LauncherMain* base, QWidget* parent) :
     QDialog(parent), _base(base), _textEdit(nullptr)
 {
 }
 
-GDialog::~GDialog()
+GCommandDialog::~GCommandDialog()
 {
     delete _textEdit;
 }
 
-void GDialog::closeEvent(QCloseEvent* event)
+void GCommandDialog::closeEvent(QCloseEvent* event)
 {
     if (_base)
         _base->SetDevPanel(nullptr);
@@ -19,7 +19,7 @@ void GDialog::closeEvent(QCloseEvent* event)
     deleteLater();
 }
 
-void GDialog::SetTextEdit(QTextEdit* textEdit)
+void GCommandDialog::SetTextEdit(QTextEdit* textEdit)
 {
     G_ASSERT(textEdit);
     _textEdit = textEdit;
@@ -27,7 +27,7 @@ void GDialog::SetTextEdit(QTextEdit* textEdit)
     _textEdit->installEventFilter(this);
 }
 
-bool GDialog::eventFilter(QObject* object, QEvent* event)
+bool GCommandDialog::eventFilter(QObject* object, QEvent* event)
 {
     if (event->type() == QEvent::KeyPress)
     {

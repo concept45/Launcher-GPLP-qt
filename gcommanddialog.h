@@ -1,5 +1,5 @@
-#ifndef GDIALOG_H
-#define GDIALOG_H
+#ifndef GCOMMANDDIALOG_H
+#define GCOMMANDDIALOG_H
 
 #include <QDialog>
 #include <QTextEdit>
@@ -7,13 +7,13 @@
 
 class LauncherMain;
 
-class GDialog : public QDialog
+class GCommandDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit GDialog(LauncherMain* base, QWidget* parent = 0);
-    ~GDialog();
+    explicit GCommandDialog(LauncherMain* base, QWidget* parent = 0);
+    ~GCommandDialog();
 
     void closeEvent(QCloseEvent* event);
 
@@ -27,5 +27,5 @@ private:
     QTextEdit* _textEdit;
 };
 
-#endif // GDIALOG_H
+#endif // GCOMMANDDIALOG_H
 

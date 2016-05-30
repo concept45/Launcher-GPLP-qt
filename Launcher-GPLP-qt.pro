@@ -18,16 +18,16 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         launchermain.cpp \
-    gdialog.cpp \
     commands.cpp \
     commandshandler.cpp \
-    filedownloader.cpp
+    downloadhandler.cpp \
+    gcommanddialog.cpp
 
 HEADERS  += launchermain.h \
     types.h \
-    gdialog.h \
     commands.h \
-    filedownloader.h
+    downloadhandler.h \
+    gcommanddialog.h
 
 FORMS    += launchermain.ui
 

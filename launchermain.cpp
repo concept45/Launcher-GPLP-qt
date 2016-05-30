@@ -69,7 +69,7 @@ void LauncherMain::SetupFunctions()
 
     connect(ui->devButton, &QPushButton::clicked, [=]()
     {
-        GDialog* dialog = new GDialog(this);
+        GCommandDialog* dialog = new GCommandDialog(this);
         QVBoxLayout* layout = new QVBoxLayout(dialog);
         layout->setContentsMargins(QMargins());
         layout->setSpacing(0);
@@ -281,7 +281,7 @@ void LauncherMain::SetDevMode(bool x, bool init)
     }
 }
 
-void LauncherMain::SetDevPanel(GDialog* dialog)
+void LauncherMain::SetDevPanel(GCommandDialog* dialog)
 {
     if (_devPanel)
         _devPanel->close();

@@ -1,6 +1,6 @@
 #include "commands.h"
 #include "launchermain.h"
-#include "filedownloader.h"
+#include "downloadhandler.h"
 
 bool LauncherMain::HandleHelloCommand(char const* /*args*/)
 {
@@ -38,7 +38,7 @@ bool LauncherMain::HandleDownloadTestCommand(char const* args)
 
     QUrl url;
     url.setUrl(args);
-    FileDownloader downloader(url);
-    downloader.Execute();
+    DownloadHandler* downloader = new DownloadHandler(this);
+    downloader->RequestDownload(url);
     return true;
 }
