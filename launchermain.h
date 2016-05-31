@@ -68,8 +68,7 @@ private:
 
     DevPanel* _devPanel;
 
-private slots:
-    void ProcessQComboxSignal(int index);
+//private slots:
 };
 
 #endif // LAUNCHERMAIN_H

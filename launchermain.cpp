@@ -62,7 +62,17 @@ void LauncherMain::SetupFunctions()
         showMinimized();
     });
 
-    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(ProcessQComboxSignal(int)));
+    connect(ui->comboBox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [=](int index)
+    {
+        if (index == 5)
+        {
+            if (!close())
+                QMessageBox::information(nullptr, "Error", "Error while closing the ui");
+            qApp->exit();
+        }
+
+        ui->comboBox->setCurrentText(QString());
+    });
 
     connect(ui->devButton, &QPushButton::clicked, [=]()
     {
@@ -203,18 +213,6 @@ void LauncherMain::resizeEvent(QResizeEvent* event)
     ModifyColumnView(ui->columnView_2, true, newX);
 
     _grip->move(event->size().width() - 12, event->size().height() - 12);
-}
-
-void LauncherMain::ProcessQComboxSignal(int index)
-{
-    if (index == 5)
-    {
-        if (!close())
-            QMessageBox::information(nullptr, "Error", "Error while closing the ui");
-        qApp->exit();
-    }
-
-    ui->comboBox->setCurrentText(QString());
 }
 
 void LauncherMain::LoadRealmlists()
